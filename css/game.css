@@ -34,3 +34,15 @@
   float: right;
   background-color: yellow;
 }
+
+#map {
+  width: auto;
+  height: 30%;
+  padding-bottom: 30%;
+  background-color: blue;
+}
+
+#menuItems {
+  bottom: 0px;
+  background-color: red;
+}
