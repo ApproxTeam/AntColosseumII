@@ -1,0 +1,25 @@
+#resources {
+  width: 75%;
+  min-width: 200px;
+  height: 20px;
+  border-style: inset;
+  float: right;
+}
+.resource {
+
+}
+
+#mainMenu {
+  border-style: inset;
+  width: 24%;
+  min-width: 300px;
+  height: 98%;
+  position: absolute;
+}
+
+#mainContainer {
+}
+
+#mainGame {
+  border-style: inset;
+}

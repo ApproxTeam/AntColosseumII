@@ -1,5 +1,24 @@
 <html>
+  <head>
+    <script type='text/javascript' src='libs/knockout-3.4.2.js'></script>
+    <script src="https://use.fontawesome.com/0b71211403.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/game.css">
+
+    <script type='text/html' id="resourceTemplate">
+      <span class="resource">
+        <span data-bind="html: resource.icon"></span>
+        <span data-bind="text: resource.name"></span>:
+        <span data-bind="text: resource.value"></span>
+      </span>
+    </script>
+  </head>
   <body>
-    test
+    <div id="mainContainer">
+      <div id="mainMenu"></div>
+      <div id="resources" data-bind="template: { name: 'resourceTemplate', foreach: resources, as: 'resource' }"></div>
+      <div id="mainGame"></div>
+    </div>
   </body>
+
+  <script type='text/javascript' src='js/main.js'></script>
 </html>
