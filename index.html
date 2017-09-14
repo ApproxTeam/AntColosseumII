@@ -2,6 +2,7 @@
   <head>
     <script type='text/javascript' src='libs/knockout-3.4.2.js'></script>
     <script src="https://use.fontawesome.com/0b71211403.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/game.css">
 
     <script type='text/html' id="resourceTemplate">
@@ -13,11 +14,11 @@
     </script>
   </head>
   <body>
-    <div id="mainContainer">
-      <div id="mainMenu"></div>
-      <div id="resources" data-bind="template: { name: 'resourceTemplate', foreach: resources, as: 'resource' }"></div>
-      <div id="mainGame"></div>
-    </div>
+    <div id="resources" data-bind="template: { name: 'resourceTemplate', foreach: resources, as: 'resource' }"></div>
+      <div id="bottomContainer">
+        <div id="mainMenu"></div>
+        <canvas id="mainGame"></canvas>
+      </div>
   </body>
 
   <script type='text/javascript' src='js/main.js'></script>

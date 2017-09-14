@@ -8,7 +8,5 @@ function GameViewModel() {
 
 }
 
-
-
 var mainGameViewModel = new GameViewModel();
 ko.applyBindings(mainGameViewModel);
