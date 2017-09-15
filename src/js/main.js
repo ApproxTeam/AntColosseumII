@@ -5,6 +5,7 @@ import {
   socketConfiguration
 } from './sockets/socketConfig';
 
+
 function GameViewModel() {
   var self = this;
   self.resources = ko.observableArray([{
