@@ -1,10 +1,9 @@
 import {
-  initSockets
+  initSocket
 } from './sockets/socketHandler';
 import {
   socketConfiguration
 } from './sockets/socketConfig';
-
 
 function GameViewModel() {
   var self = this;
@@ -27,19 +26,21 @@ function GameViewModel() {
 
 }
 
-function onClick() {
-  doSend(webSocket, "TEST");
+$(document).ready(function() {
+  function onClick() {
+    doSend(webSocket, "TEST");
 
-}
-
-
-var mainGameViewModel = new GameViewModel();
-ko.applyBindings(mainGameViewModel);
+  }
 
 
+  var mainGameViewModel = new GameViewModel();
+  ko.applyBindings(mainGameViewModel);
 
-var webSocket = initSockets(socketConfiguration.url,
-  socketConfiguration.onMessage,
-  socketConfiguration.onOpen,
-  socketConfiguration.onClose,
-  socketConfiguration.onError);
+
+
+  var webSocket = initSocket(socketConfiguration.url,
+    socketConfiguration.onMessage,
+    socketConfiguration.onOpen,
+    socketConfiguration.onClose,
+    socketConfiguration.onError);
+});

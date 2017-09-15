@@ -1,4 +1,4 @@
-export function initSockets(url, onMessage, onOpen, onClose, onError)
+export function initSocket(url, onMessage, onOpen, onClose, onError)
 {
     var webSocket = new WebSocket(url);
     webSocket.onmessage = onMessage;
