@@ -1,4 +1,4 @@
-function initSockets(url, onMessage, onOpen, onClose, onError)
+export function initSockets(url, onMessage, onOpen, onClose, onError)
 {
     var webSocket = new WebSocket(url);
     webSocket.onmessage = onMessage;
@@ -8,7 +8,7 @@ function initSockets(url, onMessage, onOpen, onClose, onError)
     return webSocket;
  }
 
-function doSend(socket, message)
+export function doSend(socket, message)
 {
 	socket.send(message);
 }

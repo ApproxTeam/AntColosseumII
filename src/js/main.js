@@ -1,3 +1,10 @@
+import {
+  initSockets
+} from './sockets/socketHandler';
+import {
+  socketConfiguration
+} from './sockets/socketConfig';
+
 function GameViewModel() {
   var self = this;
   self.resources = ko.observableArray([{
@@ -21,27 +28,17 @@ function GameViewModel() {
 
 function onClick() {
   doSend(webSocket, "TEST");
-  console.log("LEO");
 
 }
+
 
 var mainGameViewModel = new GameViewModel();
 ko.applyBindings(mainGameViewModel);
 
 
-var socketHandler = {
-  onOpen: function(event) {
-    console.log(event);
-  },
-  onClose: function(event) {
-    console.log(event);
-  },
-  onMessage: function(event) {
-    console.log(event);
-  },
-  onError: function(event) {
-    console.log(event);
-  }
-}
 
-var webSocket = initSockets("ws://localhost:8080/OlympiaServer/game", socketHandler.onMessage, socketHandler.onOpen, socketHandler.onClose, socketHandler.onError);
+var webSocket = initSockets(socketConfiguration.url,
+  socketConfiguration.onMessage,
+  socketConfiguration.onOpen,
+  socketConfiguration.onClose,
+  socketConfiguration.onError);
