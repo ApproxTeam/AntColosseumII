@@ -29,7 +29,6 @@ function GameViewModel() {
 $(document).ready(function() {
   function onClick() {
     doSend(webSocket, "TEST");
-
   }
 
 

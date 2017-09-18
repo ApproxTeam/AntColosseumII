@@ -1,9 +1,10 @@
 import { initialiseGame } from '../gameRender/game.js';
 
 export const socketConfiguration = {
-  url: "ws://localhost:8080/OlympiaServer/game",
+  url: "ws://approxteam.dnsapi.info:7777/OlympiaServer/game",
   onOpen: function(event) {
     initialiseGame();
+
   },
   onClose: function(event) {
     console.log(event);
