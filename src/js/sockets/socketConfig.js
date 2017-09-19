@@ -1,7 +1,7 @@
 import { initialiseGame } from '../gameRender/game.js';
 
 export const socketConfiguration = {
-  url: "ws://approxteam.ddns.net/:7777/OlympiaServer/game",
+  url: "ws://approxteam.ddns.net:7777/OlympiaServer/game",
   onOpen: function(event) {
     initialiseGame();
 
