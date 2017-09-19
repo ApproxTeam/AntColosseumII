@@ -12,7 +12,7 @@ function initSocket(url, onMessage, onOpen, onClose, onError)
  }
 
 const socketConfiguration = {
-  url: "ws://localhost:8080/MultiSMS-1.0/register",
+  url: "ws://approxteam.ddns.net:7777/OlympiaServer/game",
   onOpen: function(event) {
     alert("POLACZONO W CHUJ");
   },
