@@ -8,7 +8,11 @@ export function initialiseGame() {
     resolution: window.devicePixelRatio,
     autoResize: true,
   }
-  let app = new PIXI.Application(1000, 1000, {view: mainCanvas}, rendererOptions);
+  let ratio = window.innerWidth / window.innerHeight;
+  let app = new PIXI.Application(window.innerWidth, window.innerHeight, {view: mainCanvas}, rendererOptions);
+  window.onresize = function(event) {
+      resize(app.renderer, ratio);
+  };
   let skeletonAppear = loadAnimateFrame("skeleton", "appear", 80, 10, 1);
   let skeleton = getSkeletonSprite();
 
@@ -38,4 +42,16 @@ export function loadAnimateFrame(assetFolder, assetPrefix, assetTime, assetMax, 
   }
   return frameSet;
 
+}
+
+function resize(renderer, ratio) {
+    if (window.innerWidth / window.innerHeight >= ratio) {
+        var w = window.innerHeight * ratio;
+        var h = window.innerHeight;
+    } else {
+        var w = window.innerWidth;
+        var h = window.innerWidth / ratio;
+    }
+    renderer.view.style.width = w + 'px';
+    renderer.view.style.height = h + 'px';
 }

@@ -1,48 +1,14 @@
-#resources {
-  width: 100%;
-  min-height: 20px;
-  border-style: inset;
-  text-align: center;
-  background-color: red;
-}
-.resource {
-
-}
-
-#mainMenu {
-  display: inline-block;
-  border-style: inset;
-  width: 25%;
-  height: 97.8%;
-  clear: left;
-  margin: 0;
-  padding: 0;
+body {
   background-color: black;
 }
 
-#bottomContainer {
-  width: 100%;
-}
-
 #mainGame {
-  display: inline-block;
-  border-style: inset;
-  width: 75%;
-  height: 97.8%;
+  width: 100%;
+  height: 100%;
   margin: 0;
   padding: 0;
-  float: right;
-  background-color: yellow;
-}
-
-#map {
-  width: auto;
-  height: 30%;
-  padding-bottom: 30%;
-  background-color: blue;
-}
-
-#menuItems {
-  bottom: 0px;
-  background-color: red;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
