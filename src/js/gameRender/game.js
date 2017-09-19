@@ -1,17 +1,41 @@
+import { getSkeletonSprite, skeletonAttack } from './skeleton';
+
 export function initialiseGame() {
   let mainCanvas = document.getElementById("mainGame");
-  let app = new PIXI.Application(mainCanvas.width, mainCanvas.height, {view: mainCanvas});
-  app.autoResize = true;
-  PIXI.loader.add('blob', './assets/blob.png').load(function(loader, resources) {
-    var blob = new PIXI.Sprite(resources.blob.texture);
-    blob.x = app.renderer.width / 2;
-    blob.y = app.renderer.height / 2;
-    blob.anchor.x = 0.5;
-    blob.anchor.y = 0.5;
-    app.stage.addChild(blob);
+  let rendererOptions = {
+    antialiasing: false,
+    transparent: false,
+    resolution: window.devicePixelRatio,
+    autoResize: true,
+  }
+  let app = new PIXI.Application(1000, 1000, {view: mainCanvas}, rendererOptions);
+  let skeletonAppear = loadAnimateFrame("skeleton", "appear", 80, 10, 1);
+  let skeleton = getSkeletonSprite();
 
-    app.ticker.add(function() {
-        blob.rotation += 0.01;
-    });
+  skeleton.interactive = true;
+
+  skeleton.on('pointerdown', (event) => {
+    skeleton.textures = skeletonAttack;
+    skeleton.play();
+    skeleton.loop = false;
+    skeleton.onComplete = skeleton.idle;
   });
+  skeleton.x = 300;
+  skeleton.y = 300;
+  app.stage.addChild(skeleton);
+  app.ticker.add(function() {
+  });
+}
+
+export function loadAnimateFrame(assetFolder, assetPrefix, assetTime, assetMax, assetMin) {
+  let frameSet = [];
+  for (let i = assetMin; i <= assetMax; i++){
+    let frame = {
+        texture: PIXI.Texture.fromImage(`./assets/${assetFolder}/${assetPrefix}_${i}.png`),
+        time: assetTime
+    };
+    frameSet.push(frame);
+  }
+  return frameSet;
+
 }
