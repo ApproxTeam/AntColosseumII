@@ -1,7 +1,13 @@
 import { getSkeletonSprite, skeletonAttack } from './skeleton';
+import { getAntSprite } from './ant';
 import { doSend } from '../sockets/socketHandler';
+import { getSoundAsset, preDefinedSounds } from './soundUtils';
 
-export function initialiseGame() {
+export const gameGlobal = {
+  app: initApplication()
+}
+
+function initApplication() {
   let mainCanvas = document.getElementById("mainGame");
   let rendererOptions = {
     antialiasing: false,
@@ -14,22 +20,36 @@ export function initialiseGame() {
   window.onresize = function(event) {
       resize(app.renderer, ratio);
   };
-  let skeletonAppear = loadAnimateFrame("skeleton", "appear", 80, 10, 1);
-  let skeleton = getSkeletonSprite();
+  return app;
+}
 
-  skeleton.interactive = true;
+export function initialiseGame() {
+  let ant = getAntSprite();
 
-  skeleton.on('pointerdown', (event) => {
-    skeleton.textures = skeletonAttack;
-    skeleton.play();
-    skeleton.loop = false;
-    skeleton.onComplete = skeleton.idle;
+  ant.interactive = true;
+
+  ant.on('pointerdown', (event) => {
+    ant.play();
+    ant.loop = false;
+    ant.onComplete = ant.idle;
   });
-  skeleton.x = 300;
-  skeleton.y = 300;
-  app.stage.addChild(skeleton);
-  app.ticker.add(function() {
+  ant.x = 300;
+  ant.y = 300;
+  gameGlobal.app.stage.addChild(ant);
+  preDefinedSounds.entryOfGladiatorsEntry.play();
+  gameGlobal.app.ticker.add(function(deltaTime) {
   });
+}
+
+function getAnt() {
+  let ant = getAntSprite();
+  ant.x = getRandomArbitrary(0, window.innerWidth);
+  ant.y = getRandomArbitrary(0, window.innerHeight);
+  return ant;
+}
+
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
 }
 
 export function loadAnimateFrame(assetFolder, assetPrefix, assetTime, assetMax, assetMin) {
@@ -55,4 +75,22 @@ function resize(renderer, ratio) {
     }
     renderer.view.style.width = w + 'px';
     renderer.view.style.height = h + 'px';
+}
+
+
+export function gameEventRecognizer(event) {
+  if(event === "ENTRYEND") {
+    preDefinedSounds.entryOfGladiatorLooped.play();
+
+    for(var j = 0; j < 100; j++) {
+      sleep(getRandomArbitrary(0, 1000)).then(() => {
+          gameGlobal.app.stage.addChild(getAnt());
+      });
+    }
+
+  }
+}
+
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
 }
