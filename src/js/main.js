@@ -5,10 +5,10 @@ import {
   socketConfiguration
 } from './sockets/socketConfig';
 
-$(document).ready(function() {
-  var webSocket = initSocket(socketConfiguration.url,
-    socketConfiguration.onMessage,
-    socketConfiguration.onOpen,
-    socketConfiguration.onClose,
-    socketConfiguration.onError);
-});
+export const globals = {
+  webSocket : initSocket(socketConfiguration.url,
+   socketConfiguration.onMessage,
+   socketConfiguration.onOpen,
+   socketConfiguration.onClose,
+   socketConfiguration.onError)
+}

@@ -1,4 +1,5 @@
 import { getSkeletonSprite, skeletonAttack } from './skeleton';
+import { doSend } from '../sockets/socketHandler';
 
 export function initialiseGame() {
   let mainCanvas = document.getElementById("mainGame");

@@ -1,3 +1,5 @@
+import { globals } from '../main.js';
+
 export function initSocket(url, onMessage, onOpen, onClose, onError)
 {
     var webSocket = new WebSocket(url);
@@ -8,7 +10,7 @@ export function initSocket(url, onMessage, onOpen, onClose, onError)
     return webSocket;
  }
 
-export function doSend(socket, message)
+export function doSend(message)
 {
-	socket.send(message);
+	globals.webSocket.send(message);
 }

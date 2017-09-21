@@ -3,4 +3,5 @@ export default {
 	dest: 'build/js/bundle.js',
 	format: 'iife',
 	sourceMap: 'inline',
+	moduleName: 'AntColosseum'
 };
