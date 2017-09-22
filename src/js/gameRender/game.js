@@ -23,6 +23,13 @@ function initApplication() {
   return app;
 }
 
+export function initialiseLoader() {
+  console.log(isSoundsLoaded());
+  preDefinedSounds.entryOfGladiatorsEntry.once('load', function() {
+
+  });
+}
+
 export function initialiseGame() {
   let ant = getAntSprite();
 
@@ -93,4 +100,12 @@ export function gameEventRecognizer(event) {
 
 function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+function isSoundsLoaded() {
+  for(var property in preDefinedSounds) {
+    if (preDefinedSounds.hasOwnProperty(property)) {
+      console.log(property);
+    }
+  }
 }
