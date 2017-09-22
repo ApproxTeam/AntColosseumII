@@ -8,8 +8,14 @@
     <link rel="stylesheet" type="text/css" href="css/game.css">
   </head>
   <body>
-
-        <canvas id="mainGame"></canvas>
+    <div class="preLoader" style="color: #226764">
+      Loading...<br>
+      <span class="fa-stack fa-5x">
+          <i class="fa fa-circle-o fa-stack-2x"></i>
+  	    <i class="fa fa-bug fa-spin fa-stack-1x"></i>
+      </span>
+    </div>
+    <canvas id="mainGame" hidden=true></canvas>
   </body>
 
   <script type='text/javascript' src='js/bundle.js'></script>

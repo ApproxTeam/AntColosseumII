@@ -1,10 +1,12 @@
 import { getSkeletonSprite, skeletonAttack } from './skeleton';
-import { getAntSprite } from './ant';
+import { getAntSprite, antTypes } from './ant';
 import { doSend } from '../sockets/socketHandler';
 import { getSoundAsset, preDefinedSounds } from './soundUtils';
 
 export const gameGlobal = {
-  app: initApplication()
+  app: initApplication(),
+  soundsLoaded: false,
+  loader: PIXI.loader,
 }
 
 function initApplication() {
@@ -23,8 +25,36 @@ function initApplication() {
   return app;
 }
 
+export function initialiseLoader() {
+  soundsLoader();
+}
+
+function hidePreloaderAndStartGame() {
+  jQuery(".preLoader").fadeOut();
+  jQuery("#mainGame").fadeIn();
+  initialiseGame();
+}
+
+function gameLoader() {
+  hidePreloaderAndStartGame();
+  gameGlobal.loader.onLoad.add(() => {
+    hidePreloaderAndStartGame();
+  });
+}
+
+function soundsLoader() {
+  sleep(100).then((() => {
+    isSoundsLoaded();
+    if(!gameGlobal.soundsLoaded) {
+      soundsLoader();
+    } else {
+      gameLoader();
+    }
+  }));
+}
+
 export function initialiseGame() {
-  let ant = getAntSprite();
+  let ant = getAntSprite(antTypes.fireAnt);
 
   ant.interactive = true;
 
@@ -42,7 +72,12 @@ export function initialiseGame() {
 }
 
 function getAnt() {
-  let ant = getAntSprite();
+  let ant = undefined;
+  if(randomBoolean()) {
+    ant = getAntSprite(antTypes.iceAnt);
+  } else {
+    ant = getAntSprite(antTypes.fireAnt);
+  }
   ant.x = getRandomArbitrary(0, window.innerWidth);
   ant.y = getRandomArbitrary(0, window.innerHeight);
   return ant;
@@ -52,7 +87,12 @@ function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
 }
 
-export function loadAnimateFrame(assetFolder, assetPrefix, assetTime, assetMax, assetMin) {
+function randomBoolean() {
+  return Math.random() >= 0.5;
+}
+
+export function loadAnimateFrame(assetFolder, assetPrefix, assetTime, assetMax, assetMin, viceVersa) {
+  viceVersa = (typeof viceVersa === 'undefined') ? false : true;
   let frameSet = [];
   for (let i = assetMin; i <= assetMax; i++){
     let frame = {
@@ -60,6 +100,15 @@ export function loadAnimateFrame(assetFolder, assetPrefix, assetTime, assetMax, 
         time: assetTime
     };
     frameSet.push(frame);
+  }
+  if(viceVersa) {
+    for (let i = assetMax; i >= assetMin; i--){
+      let frame = {
+          texture: PIXI.Texture.fromImage(`./assets/${assetFolder}/${assetPrefix}_${i}.png`),
+          time: assetTime
+      };
+      frameSet.push(frame);
+    }
   }
   return frameSet;
 
@@ -93,4 +142,13 @@ export function gameEventRecognizer(event) {
 
 function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+function isSoundsLoaded() {
+  for(var property in preDefinedSounds) {
+    if(preDefinedSounds[property].state() !== 'loaded') {
+      gameGlobal.soundsLoaded = false;
+    }
+  }
+  gameGlobal.soundsLoaded = true;
 }
