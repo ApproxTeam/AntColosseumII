@@ -3,8 +3,8 @@ import { getAntSprite, antTypes } from './ant';
 import { doSend } from '../sockets/socketHandler';
 import { getSoundAsset, preDefinedSounds } from './soundUtils';
 import { loadAnimateFrame, initTexturesPreloader } from './textures';
-import { getRandomArbitrary, randomBoolean } from './randomUtils';
-import { loadMainMenu, stages } from './stage';
+import { getRandomArbitrary, randomBoolean, sleep } from './randomUtils';
+import { stages, loadInitialStage } from './stages/stage';
 
 export const gameGlobal = {
   app: initApplication(),
@@ -43,19 +43,18 @@ function gameLoader() {
 }
 
 function soundsLoader() {
-  sleep(100).then((() => {
+  sleep(100).then(() => {
     isSoundsLoaded();
     if(!gameGlobal.soundsLoaded) {
       soundsLoader();
     } else {
       gameLoader();
     }
-  }));
+  });
 }
 
 export function initialiseGame() {
-  loadMainMenu();
-  gameGlobal.app.stage.addChild(stages.mainMenu);
+  loadInitialStage();
 }
 
 function getAnt() {
@@ -83,9 +82,6 @@ function resize(renderer, ratio) {
 }
 
 
-function sleep (time) {
-  return new Promise((resolve) => setTimeout(resolve, time));
-}
 
 function isSoundsLoaded() {
   for(var property in preDefinedSounds) {

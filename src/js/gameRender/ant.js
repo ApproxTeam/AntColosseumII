@@ -1,4 +1,5 @@
 import { loadAnimateFrame } from './textures';
+import { pickRandomProperty } from './randomUtils';
 
 export const antFrames = {
   idle : 3,
@@ -95,14 +96,6 @@ export function getAntSprite(antType) {
   return ant;
 }
 
-function pickRandomProperty(obj) {
-    var result;
-    var count = 0;
-    for (var prop in obj)
-        if (Math.random() < 1/++count)
-           result = prop;
-    return result;
-}
 
 
 function loadAssetsforAnt(antType, time, frames, viceVersa) {
