@@ -61,7 +61,7 @@ function moveMainMenuAnts(deltaTime) {
     ant.y += 0.5;
     if(even) {
       ant.y += 0.2;
-      if(timePassed > 100) {
+      if(timePassed > 150) {
         timePassed = 0;
       }
     } else if(!even && timePassed <= 50) {
