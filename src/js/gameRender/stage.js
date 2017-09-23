@@ -53,8 +53,8 @@ function getMainMenuAntsContainer() {
   return container;
 }
 
-const timePassed = 0;
-const even = false;
+let timePassed = 0;
+let even = false;
 function moveMainMenuAnts(deltaTime) {
   console.log(deltaTime);
   timePassed += deltaTime;
