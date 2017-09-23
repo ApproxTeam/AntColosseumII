@@ -59,10 +59,12 @@ function moveMainMenuAnts(deltaTime) {
   timePassed += deltaTime;
   mainMenuAnts.forEach(function(ant) {
     ant.y += 0.5;
-    if(even && timePassed > 100) {
+    if(even) {
       ant.y += 0.2;
-      timePassed = 0;
-    } else if(!even && timePassed <= 100) {
+      if(timePassed > 100) {
+        timePassed = 0;
+      }
+    } else if(!even && timePassed <= 50) {
       ant.y += 0.4;
     }
     even = !even;
