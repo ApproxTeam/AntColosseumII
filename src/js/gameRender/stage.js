@@ -39,10 +39,10 @@ const mainMenuAnts = [];
 function getMainMenuAntsContainer() {
   let container = new PIXI.Container();
   let rendererWidth = getRendererWidth();
-  let ants = rendererWidth / 100;
+  let ants = rendererWidth / 128;
   for(let i = 0; i <= ants; i++) {
     let ant = getAntSprite(antTypes.fireAnt);
-    ant.x = i * 100;
+    ant.x = i * 128;
     ant.y = -100;
     ant.textures = ant.type.down;
     ant.loop = true;
