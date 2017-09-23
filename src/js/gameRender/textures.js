@@ -1,7 +1,7 @@
 import { gameGlobal, hidePreloaderAndStartGame } from './game';
 import { loadAnts } from './ant';
 
-export function loadAnimateFrame(assetFolder, assetPrefix, assetTime, assetMax, assetMin, viceVersa) {
+export function loadAnimateFrame(assetPrefix, assetTime, assetMax, assetMin, viceVersa) {
   viceVersa = (typeof viceVersa === 'undefined') ? false : true;
   let loader = PIXI.loader;
   let frameSet = [];

@@ -1,5 +1,3 @@
-import { gameEventRecognizer } from './game';
-
 export function getSoundAsset(relativePath, name, loop, autoplay, onEnd) {
   return new Howl(
     {
@@ -12,9 +10,7 @@ export function getSoundAsset(relativePath, name, loop, autoplay, onEnd) {
 }
 
 export const preDefinedSounds = {
-  entryOfGladiatorsEntry : getSoundAsset(".", "entry1.wav", false, false, function() {
-    gameEventRecognizer("ENTRYEND");
-  }),
+  entryOfGladiatorsEntry : getSoundAsset(".", "entry1.wav", false, false, null),
   entryOfGladiatorLooped: getSoundAsset(".", "entry2.wav", true, false, null)
 
 }

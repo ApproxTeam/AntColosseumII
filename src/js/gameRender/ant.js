@@ -88,17 +88,10 @@ export function loadAnts() {
 
 
 export function getAntSprite(antType) {
-  let ant = new PIXI.extras.AnimatedSprite(antType.leftUpDie);
+  let ant = new PIXI.extras.AnimatedSprite(antType.downIdle);
   ant.play();
   ant.loop = false;
-  ant.idle = function() {
-    ant.textures = antType[pickRandomProperty(antType)];
-    ant.loop = true;
-    ant.play();
-  }
-  ant.onComplete = ant.idle;
-
-
+  ant.type = antType;
   return ant;
 }
 
@@ -121,8 +114,8 @@ function loadAssetsforAnt(antType, time, frames, viceVersa) {
   helper[antType] = max + 1;
   console.log(min + " " + max + " " + antType);
   if(viceVersa) {
-    return loadAnimateFrame("ant/" + antType, antType, time, max, min, true);
+    return loadAnimateFrame(antType, time, max, min, true);
   } else {
-    return loadAnimateFrame("ant/" + antType, antType, time, max, min);
+    return loadAnimateFrame(antType, time, max, min);
   }
 }

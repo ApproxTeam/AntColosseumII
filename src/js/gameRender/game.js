@@ -3,6 +3,8 @@ import { getAntSprite, antTypes } from './ant';
 import { doSend } from '../sockets/socketHandler';
 import { getSoundAsset, preDefinedSounds } from './soundUtils';
 import { loadAnimateFrame, initTexturesPreloader } from './textures';
+import { getRandomArbitrary, randomBoolean } from './randomUtils';
+import { loadMainMenu, stages } from './stage';
 
 export const gameGlobal = {
   app: initApplication(),
@@ -52,21 +54,8 @@ function soundsLoader() {
 }
 
 export function initialiseGame() {
-  let ant = getAntSprite(antTypes.fireAnt);
-
-  ant.interactive = true;
-
-  ant.on('pointerdown', (event) => {
-    ant.play();
-    ant.loop = false;
-    ant.onComplete = ant.idle;
-  });
-  ant.x = 300;
-  ant.y = 300;
-  gameGlobal.app.stage.addChild(ant);
-  preDefinedSounds.entryOfGladiatorsEntry.play();
-  gameGlobal.app.ticker.add(function(deltaTime) {
-  });
+  loadMainMenu();
+  gameGlobal.app.stage.addChild(stages.mainMenu);
 }
 
 function getAnt() {
@@ -81,14 +70,6 @@ function getAnt() {
   return ant;
 }
 
-function getRandomArbitrary(min, max) {
-    return Math.random() * (max - min) + min;
-}
-
-function randomBoolean() {
-  return Math.random() >= 0.5;
-}
-
 function resize(renderer, ratio) {
     if (window.innerWidth / window.innerHeight >= ratio) {
         var w = window.innerHeight * ratio;
@@ -101,19 +82,6 @@ function resize(renderer, ratio) {
     renderer.view.style.height = h + 'px';
 }
 
-
-export function gameEventRecognizer(event) {
-  if(event === "ENTRYEND") {
-    preDefinedSounds.entryOfGladiatorLooped.play();
-
-    for(var j = 0; j < 100; j++) {
-      sleep(getRandomArbitrary(0, 1000)).then(() => {
-          gameGlobal.app.stage.addChild(getAnt());
-      });
-    }
-
-  }
-}
 
 function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
