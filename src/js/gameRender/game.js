@@ -2,6 +2,7 @@ import { getSkeletonSprite, skeletonAttack } from './skeleton';
 import { getAntSprite, antTypes } from './ant';
 import { doSend } from '../sockets/socketHandler';
 import { getSoundAsset, preDefinedSounds } from './soundUtils';
+import { loadAnimateFrame, initTexturesPreloader } from './textures';
 
 export const gameGlobal = {
   app: initApplication(),
@@ -29,17 +30,14 @@ export function initialiseLoader() {
   soundsLoader();
 }
 
-function hidePreloaderAndStartGame() {
+export function hidePreloaderAndStartGame() {
   jQuery(".preLoader").fadeOut();
   jQuery("#mainGame").fadeIn();
   initialiseGame();
 }
 
 function gameLoader() {
-  hidePreloaderAndStartGame();
-  gameGlobal.loader.onLoad.add(() => {
-    hidePreloaderAndStartGame();
-  });
+  initTexturesPreloader();
 }
 
 function soundsLoader() {
@@ -89,29 +87,6 @@ function getRandomArbitrary(min, max) {
 
 function randomBoolean() {
   return Math.random() >= 0.5;
-}
-
-export function loadAnimateFrame(assetFolder, assetPrefix, assetTime, assetMax, assetMin, viceVersa) {
-  viceVersa = (typeof viceVersa === 'undefined') ? false : true;
-  let frameSet = [];
-  for (let i = assetMin; i <= assetMax; i++){
-    let frame = {
-        texture: PIXI.Texture.fromImage(`./assets/${assetFolder}/${assetPrefix}_${i}.png`),
-        time: assetTime
-    };
-    frameSet.push(frame);
-  }
-  if(viceVersa) {
-    for (let i = assetMax; i >= assetMin; i--){
-      let frame = {
-          texture: PIXI.Texture.fromImage(`./assets/${assetFolder}/${assetPrefix}_${i}.png`),
-          time: assetTime
-      };
-      frameSet.push(frame);
-    }
-  }
-  return frameSet;
-
 }
 
 function resize(renderer, ratio) {
