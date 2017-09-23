@@ -56,17 +56,17 @@ function getMainMenuAntsContainer() {
 let timePassed = 0;
 let even = false;
 function moveMainMenuAnts(deltaTime) {
-  console.log(deltaTime);
   timePassed += deltaTime;
   mainMenuAnts.forEach(function(ant) {
     ant.y += 0.5;
     if(even && timePassed > 100) {
       ant.y += 0.2;
       timePassed = 0;
-    } else if(!even) {
+    } else if(!even && timePassed <= 100) {
       ant.y += 0.4;
     }
     even = !even;
+    console.log(timePassed);
   });
 }
 
