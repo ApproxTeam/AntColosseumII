@@ -54,8 +54,9 @@ function getMainMenuAntsContainer() {
 }
 
 function moveMainMenuAnts(deltaTime) {
+  console.log(deltaTime);
   mainMenuAnts.forEach(function(ant) {
-    ant.y += 0.3;
+    ant.y += 0.5;
   });
 }
 
