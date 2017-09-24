@@ -22,3 +22,26 @@ body {
    transform: translate(-50%, -50%);
    text-align: center;
 }
+.hidden {
+  display: none
+}
+
+#progressbar {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  width: 100%;
+  padding: 0px, 0px, 0px, 0px;
+  margin: 0px, 0px, 0px, 0px;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+#progressLabel {
+    position: absolute;
+    width: 100%;
+    margin: 0 auto;
+    top: 4px;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #fff;
+  }

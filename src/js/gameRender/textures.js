@@ -1,4 +1,4 @@
-import { gameGlobal, hidePreloaderAndStartGame } from './game';
+import { gameGlobal, hidePreloaderAndStartGame, updateProgressBar } from './game';
 import { loadAnts } from './ant';
 
 export function loadAnimateFrame(assetPrefix, assetTime, assetMax, assetMin, viceVersa) {
@@ -28,10 +28,15 @@ export function loadAnimateFrame(assetPrefix, assetTime, assetMax, assetMin, vic
 export function initTexturesPreloader() {
   addBundleToLoader("ant/fireant", "fireant", 0, 255);
   addBundleToLoader("ant/iceant", "iceant", 0, 255);
+  gameGlobal.loader.on("progress", progressFunction);
   gameGlobal.loader.load(function() {
     loadAnts();
     hidePreloaderAndStartGame();
   })
+}
+
+function progressFunction(progress) {
+  updateProgressBar(30 + progress.progress * 0.8);
 }
 
 function addBundleToLoader(assetsFolder, assetsPrefix, min, max) {

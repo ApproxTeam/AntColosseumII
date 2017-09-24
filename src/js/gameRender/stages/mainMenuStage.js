@@ -2,9 +2,8 @@ import { stages, getCenterOfWindow, getRendererWidth, getRendererHeight } from '
 import { getAntSprite, antTypes } from '../ant';
 import { preDefinedSounds } from '../soundUtils';
 import { randomAntType, sleep, getRandomArbitrary } from '../randomUtils';
-
+import { tryRegister } from '../controller';
 const mainMenuAnts = [];
-
 
 export function getMainMenuStage() {
   let mainMenu = new PIXI.Container();
@@ -40,6 +39,12 @@ export function getMainMenuStage() {
   let loginText = createSmallerText("Login", center[0], center[1] - 140);
   let helpText = createSmallerText("Help", center[0], center[1] - 80);
 
+  mainMenu.viewModel = new MainMenuViewModel();
+  mainMenu.registerDialog = getRegisterDialog(mainMenu);
+
+  registerText.on('click', function(event) {
+    mainMenu.registerDialog.dialog("open");
+  });
   mainMenu.addChild(antColosseumText);
   mainMenu.addChild(registerText);
   mainMenu.addChild(loginText);
@@ -75,6 +80,12 @@ export function getMainMenuAntsContainer() {
     }
   }
   return container;
+}
+
+function MainMenuViewModel() {
+  this.nickName = ko.observable("NickName");
+  this.email = ko.observable("E-mail");
+  this.password = ko.observable("Password");
 }
 
 
@@ -145,3 +156,31 @@ const smallerTextStyle = new PIXI.TextStyle({
     wordWrap: true,
     wordWrapWidth: 440
 });
+
+
+function getRegisterDialog(stage) {
+  return $( "#registerForm" ).dialog({
+      autoOpen: false,
+      height: 400,
+      width: 350,
+      modal: true,
+      buttons: {
+        "Create an account": getAccountFunction(stage, stage.viewModel),
+        Cancel: function() {
+          stage.registerDialog.dialog( "close" );
+        }
+      },
+      close: function() {
+      }
+    });
+}
+
+function getAccountFunction(stage, viewModel) {
+  return function() {
+    let nickName = viewModel.nickName();
+    let password = viewModel.password();
+    let email = viewModel.email();
+    tryRegister(nickName, password, email);
+    stage.registerDialog.dialog("close");
+  }
+}

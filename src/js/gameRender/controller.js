@@ -1,7 +1,11 @@
 import { doSend } from '../sockets/socketHandler';
 
 export function recognizeEvent(event) {
-  doSend(JSON.stringify(new RegisterAction("Razikus", "adam", "adam")));
+  //
+}
+
+export function tryRegister(nick, password, email) {
+  doSend(JSON.stringify(new RegisterAction(nick, password, email)));
 }
 
 export const actionTypes = {

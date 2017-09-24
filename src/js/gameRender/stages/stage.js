@@ -7,7 +7,18 @@ export const stages = {
 
 export function loadInitialStage() {
   stages.initialStage = getMainMenuStage();
-  gameGlobal.app.stage.addChild(stages.initialStage);
+  switchStage(stages.initialStage);
+}
+
+export function switchStage(newStage) {
+  if(gameGlobal.app.currentStage !== 'undefined') {
+    gameGlobal.app.stage.removeChild(gameGlobal.app.currentStage);
+  }
+  gameGlobal.app.currentStage = newStage;
+  gameGlobal.app.stage.addChild(newStage);
+  if(newStage.viewModel !== 'undefined') {
+    ko.applyBindings(newStage.viewModel);
+  }
 }
 
 export function getCenterOfWindow() {

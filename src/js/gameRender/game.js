@@ -10,6 +10,7 @@ export const gameGlobal = {
   app: initApplication(),
   soundsLoaded: false,
   loader: PIXI.loader,
+  progressBar: null,
 }
 
 function initApplication() {
@@ -29,16 +30,40 @@ function initApplication() {
 }
 
 export function initialiseLoader() {
+  updateProgressBar(10);
+  updateProgressLabel("Loading sounds...");
   soundsLoader();
 }
 
+export function initialiseProgressBar() {
+    gameGlobal.progressBar = $( "#progressbar" );
+    gameGlobal.progressBar.label = $("#progressLabel");
+    gameGlobal.progressBar.progressbar({
+        value: 0
+    });
+    updateProgressBar(0);
+    updateProgressLabel("Connecting...");
+}
+
+
+export function updateProgressBar(percent) {
+  gameGlobal.progressBar.progressbar("value", percent);
+}
+
+export function updateProgressLabel(label) {
+  gameGlobal.progressBar.label.text(label);
+}
+
+
 export function hidePreloaderAndStartGame() {
+  jQuery("#progressbar").fadeOut();
   jQuery(".preLoader").fadeOut();
   jQuery("#mainGame").fadeIn();
   initialiseGame();
 }
 
 function gameLoader() {
+  updateProgressLabel("Loading textures...");
   initTexturesPreloader();
 }
 
@@ -48,6 +73,8 @@ function soundsLoader() {
     if(!gameGlobal.soundsLoaded) {
       soundsLoader();
     } else {
+      updateProgressBar(30);
+      updateProgressLabel("Sounds loaded.");
       gameLoader();
     }
   });

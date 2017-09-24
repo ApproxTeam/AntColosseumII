@@ -4,8 +4,12 @@
     <script type='text/javascript' src='libs/pixi.min.js'></script>
     <script src="https://use.fontawesome.com/0b71211403.js"></script>
     <script type='text/javascript' src='libs/howler.min.js'></script>
+    <script type='text/javascript' src='libs/jquery-ui/jquery-ui.min.js'></script>
+    <script type='text/javascript' src='libs/knockout-3.4.2.js'></script>
+
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/game.css">
+    <link rel="stylesheet" type="text/css" href="libs/jquery-ui/jquery-ui.min.css">
   </head>
   <body>
     <div class="preLoader" style="color: #226764">
@@ -16,6 +20,20 @@
       </span>
     </div>
     <canvas id="mainGame" hidden=true></canvas>
+    <div id="registerForm" title="Create new user" class="hidden">
+        <p class="validateTips">All form fields are required.</p>
+
+        <form>
+        <fieldset>
+          <p>Nickname: <input data-bind="value: nickName" /></p>
+          <p>Password: <input data-bind="value: password" /></p>
+          <p>E-mail: <input data-bind="value: email" /></p>
+        </fieldset>
+      </form>
+    </div>
+    <div id="progressbar" class=".hidden">
+      <div id="progressLabel">Loading...</div>
+    </div>
   </body>
 
   <script type='text/javascript' src='js/bundle.js'></script>
