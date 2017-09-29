@@ -184,7 +184,7 @@ function getAccountFunction(stage, viewModel) {
     let email = viewModel.email();
     let validate = validateRegisterForm(nickName, password, email);
     if(validate) {
-      tryRegister(nickName, password, email);
+      tryRegister(nickName, sha256(password), email);
       stage.registerDialog.dialog("close");
     } else {
 
