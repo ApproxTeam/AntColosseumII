@@ -44,4 +44,14 @@ body {
     top: 4px;
     font-weight: bold;
     text-shadow: 1px 1px 0 #fff;
-  }
+}
+
+#registerForm fieldset label {
+  display: inline-block;
+  white-space: nowrap;
+  width: 30%;
+}
+
+#registerForm fieldset input {
+  width: 70%;
+}

@@ -3,6 +3,8 @@ import { getAntSprite, antTypes } from '../ant';
 import { preDefinedSounds } from '../soundUtils';
 import { randomAntType, sleep, getRandomArbitrary } from '../randomUtils';
 import { tryRegister } from '../controller';
+import { makeToast, iconTypes} from '../toaster';
+
 const mainMenuAnts = [];
 
 export function getMainMenuStage() {
@@ -83,9 +85,9 @@ export function getMainMenuAntsContainer() {
 }
 
 function MainMenuViewModel() {
-  this.nickName = ko.observable("NickName");
-  this.email = ko.observable("E-mail");
-  this.password = ko.observable("Password");
+  this.nickName = ko.observable("");
+  this.email = ko.observable("");
+  this.password = ko.observable("");
 }
 
 
@@ -162,7 +164,7 @@ function getRegisterDialog(stage) {
   return $( "#registerForm" ).dialog({
       autoOpen: false,
       height: 400,
-      width: 350,
+      width: 450,
       modal: true,
       buttons: {
         "Create an account": getAccountFunction(stage, stage.viewModel),
@@ -180,7 +182,31 @@ function getAccountFunction(stage, viewModel) {
     let nickName = viewModel.nickName();
     let password = viewModel.password();
     let email = viewModel.email();
-    tryRegister(nickName, password, email);
-    stage.registerDialog.dialog("close");
+    let validate = validateRegisterForm(nickName, password, email);
+    if(validate) {
+      tryRegister(nickName, password, email);
+      stage.registerDialog.dialog("close");
+    } else {
+
+    }
   }
+}
+//makeToast(heading, text, icon, hideAfter, position)
+function validateRegisterForm(nickName, password, email) {
+  let result = true;
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if(nickName.length <= 3) {
+    makeToast("Nickname", "Nickname length have to be more than 3.", iconTypes.warning, 3000, 'bottom-left');
+    result = false;
+  }
+  if(password.length <= 5) {
+    makeToast("Password", "Password length have to be more than 5.", iconTypes.warning, 3500, 'bottom-left');
+    result = false;
+  }
+  if(!re.test(email)) {
+    makeToast("E-mail", "E-mail is incorrect.", iconTypes.warning, 4000, 'bottom-left');
+    result = false;
+  }
+
+  return result;
 }
