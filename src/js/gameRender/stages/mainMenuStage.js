@@ -195,16 +195,20 @@ function getAccountFunction(stage, viewModel) {
 function validateRegisterForm(nickName, password, email) {
   let result = true;
   var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  let time = 3000;
   if(nickName.length <= 3) {
-    makeToast("Nickname", "Nickname length have to be more than 3.", iconTypes.warning, 3000, 'bottom-left');
+    makeToast("Nickname", "Nickname length have to be more than 3.", iconTypes.warning, time, 'bottom-left');
+    time = time + 500;
     result = false;
   }
   if(password.length <= 5) {
-    makeToast("Password", "Password length have to be more than 5.", iconTypes.warning, 3500, 'bottom-left');
+    makeToast("Password", "Password length have to be more than 5.", iconTypes.warning, time, 'bottom-left');
+    time = time + 500;
     result = false;
   }
   if(!re.test(email)) {
-    makeToast("E-mail", "E-mail is incorrect.", iconTypes.warning, 4000, 'bottom-left');
+    makeToast("E-mail", "E-mail is incorrect.", iconTypes.warning, time, 'bottom-left');
+    time = time + 500;
     result = false;
   }
 
