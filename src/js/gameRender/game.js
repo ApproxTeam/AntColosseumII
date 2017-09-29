@@ -1,4 +1,3 @@
-import { getSkeletonSprite, skeletonAttack } from './skeleton';
 import { getAntSprite, antTypes } from './ant';
 import { doSend } from '../sockets/socketHandler';
 import { getSoundAsset, preDefinedSounds } from './soundUtils';
