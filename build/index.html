@@ -40,6 +40,20 @@
           </fieldset>
         </form>
     </div>
+    <div id="loginForm" title="Login form" class="hidden">
+        <p class="validateTips">All form fields are required.</p>
+        <br>
+        <form>
+          <fieldset>
+            <div class="formInput">
+              <label>Nickname: </label><input required placeholder="Nickname" data-bind="value: nickName" /><br>
+            </div>
+            <div class="formInput">
+              <label>Password: </label><input required type="password" placeholder="" data-bind="value: password" /><br>
+            </div>
+          </fieldset>
+        </form>
+    </div>
     <div id="progressbar" class=".hidden">
       <div id="progressLabel">Loading...</div>
     </div>

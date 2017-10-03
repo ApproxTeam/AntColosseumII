@@ -36,8 +36,13 @@ export function tryRegister(nick, password, email) {
   doSend(JSON.stringify(new RegisterAction(nick, password, email)));
 }
 
+export function tryLogin(nick, password) {
+  doSend(JSON.stringify(new LoginAction(nick, password)));
+}
+
 export const actionTypes = {
-  register: "REGISTER"
+  register: "REGISTER",
+  login: "LOGIN",
 }
 
 export class Action {
@@ -53,6 +58,16 @@ export class RegisterAction extends Action {
       login: login,
       password: password,
       email: email
+    }
+  }
+}
+
+export class LoginAction extends Action {
+  constructor(login, password) {
+    super(actionTypes.login);
+    this.loginDivisor = {
+      login: login,
+      password: password,
     }
   }
 }

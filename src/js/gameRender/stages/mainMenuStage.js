@@ -2,7 +2,7 @@ import { stages, getCenterOfWindow, getRendererWidth, getRendererHeight } from '
 import { getAntSprite, antTypes } from '../ant';
 import { preDefinedSounds } from '../soundUtils';
 import { randomAntType, sleep, getRandomArbitrary } from '../randomUtils';
-import { tryRegister } from '../controller';
+import { tryRegister, tryLogin } from '../controller';
 import { makeToast, iconTypes} from '../toaster';
 
 const mainMenuAnts = [];
@@ -43,9 +43,14 @@ export function getMainMenuStage() {
 
   mainMenu.viewModel = new MainMenuViewModel();
   mainMenu.registerDialog = getRegisterDialog(mainMenu);
+  mainMenu.loginDialog = getLoginDialog(mainMenu);
 
   registerText.on('click', function(event) {
     mainMenu.registerDialog.dialog("open");
+  });
+
+  loginText.on('click', function(event) {
+    mainMenu.loginDialog.dialog("open");
   });
   mainMenu.addChild(antColosseumText);
   mainMenu.addChild(registerText);
@@ -177,6 +182,23 @@ function getRegisterDialog(stage) {
     });
 }
 
+function getLoginDialog(stage) {
+  return $( "#loginForm" ).dialog({
+      autoOpen: false,
+      height: 400,
+      width: 450,
+      modal: true,
+      buttons: {
+        "Login": getLoginFunction(stage, stage.viewModel),
+        Cancel: function() {
+          stage.loginDialog.dialog( "close" );
+        }
+      },
+      close: function() {
+      }
+    });
+}
+
 function getAccountFunction(stage, viewModel) {
   return function() {
     let nickName = viewModel.nickName();
@@ -191,6 +213,18 @@ function getAccountFunction(stage, viewModel) {
     }
   }
 }
+
+function getLoginFunction(stage, viewModel) {
+  return function() {
+    let nickName = viewModel.nickName();
+    let password = viewModel.password();
+    if(validateLoginForm(nickName, password)) {
+      tryLogin(nickName, sha256(password));
+      stage.loginDialog.dialog("close");
+    }
+  }
+}
+
 //makeToast(heading, text, icon, hideAfter, position)
 function validateRegisterForm(nickName, password, email) {
   let result = true;
@@ -212,5 +246,21 @@ function validateRegisterForm(nickName, password, email) {
     result = false;
   }
 
+  return result;
+}
+
+function validateLoginForm(login, password) {
+  let result = true;
+  let time = 3000;
+  if(login.length <= 3) {
+    makeToast("Nickname", "Nickname length have to be more than 3.", iconTypes.warning, time, 'bottom-left');
+    time = time + 500;
+    result = false;
+  }
+  if(password.length <= 5) {
+    makeToast("Password", "Password length have to be more than 5.", iconTypes.warning, time, 'bottom-left');
+    time = time + 500;
+    result = false;
+  }
   return result;
 }
