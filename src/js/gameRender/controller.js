@@ -43,7 +43,7 @@ export function tryLogin(nick, password) {
 export const actionTypes = {
   register: "REGISTER",
   login: "LOGIN",
-  activate: "ACTIVATE",
+  activate: "ACCOUNTACTIVATION",
 }
 
 export class Action {
