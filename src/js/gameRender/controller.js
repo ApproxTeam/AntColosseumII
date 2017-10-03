@@ -1,5 +1,7 @@
 import { doSend } from '../sockets/socketHandler';
 import { makeToast } from './toaster';
+import { globals } from '../main';
+
 export function recognizeEvent(event) {
   if(event.type === 'message') {
     recognizeMessage(event);
@@ -17,6 +19,15 @@ function recognizeClass(object) {
   if(object.className === 'Response') {
     let response = new Response(object.type, object.description, object.notifyType, object.args);
     response.proceed();
+  }
+}
+
+export function conditionallySendActivate() {
+  let GETParameters = globals.GETParameters;
+  if(GETParameters.token !== 'undefined' && GETParameters.nickname !== 'undefined') {
+    if(GETParameters.token.length !== 0 && GETParameters.nickname.length !== 0) {
+      console.log("BLALBA");
+    }
   }
 }
 
