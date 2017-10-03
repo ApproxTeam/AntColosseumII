@@ -1,5 +1,5 @@
 import { doSend } from '../sockets/socketHandler';
-import { makeToast } from './toaster';
+import { makeToast, makeDefaultToast } from './toaster';
 import { globals } from '../main';
 
 export function recognizeEvent(event) {
@@ -92,6 +92,6 @@ class Response {
   }
 
   proceed() {
-    makeToast(this.notifyType.state, this.description, this.notifyType.state.toLowerCase(), 3000, 'bottom-left');
+    makeDefaultToast(this.notifyType.state, this.description, this.notifyType.state.toLowerCase());
   }
 }
