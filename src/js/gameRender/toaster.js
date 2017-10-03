@@ -15,6 +15,91 @@ export function makeToast(heading, text, icon, hideAfter, position) {
   });
 }
 
+export function makeDefaultToast(heading, text, icon) {
+  $.toast({
+    text: text,
+    heading: heading,
+    icon: icon,
+    showHideTransition: 'fade',
+    allowToastClose: true,
+    hideAfter: 3000,
+    stack: 5,
+    position: 'bottom-left',
+
+    textAlign: 'left',
+    loader: true,
+    loaderBg: '#329CBF',
+  });
+}
+
+export function makDefaultInfoToast(heading, text) {
+  $.toast({
+    text: text,
+    heading: heading,
+    icon: iconTypes.information,
+    showHideTransition: 'fade',
+    allowToastClose: true,
+    hideAfter: 3000,
+    stack: 5,
+    position: 'bottom-left',
+
+    textAlign: 'left',
+    loader: true,
+    loaderBg: '#329CBF',
+  });
+}
+
+export function makDefaultSuccessToast(heading, text) {
+  $.toast({
+    text: text,
+    heading: heading,
+    icon: iconTypes.success,
+    showHideTransition: 'fade',
+    allowToastClose: true,
+    hideAfter: 3000,
+    stack: 5,
+    position: 'bottom-left',
+
+    textAlign: 'left',
+    loader: true,
+    loaderBg: '#329CBF',
+  });
+}
+
+export function makDefaultErrorToast(heading, text) {
+  $.toast({
+    text: text,
+    heading: heading,
+    icon: iconTypes.error,
+    showHideTransition: 'fade',
+    allowToastClose: true,
+    hideAfter: 3000,
+    stack: 5,
+    position: 'bottom-left',
+
+    textAlign: 'left',
+    loader: true,
+    loaderBg: '#329CBF',
+  });
+}
+
+export function makDefaultWarningToast(heading, text) {
+  $.toast({
+    text: text,
+    heading: heading,
+    icon: iconTypes.warning,
+    showHideTransition: 'fade',
+    allowToastClose: true,
+    hideAfter: 3000,
+    stack: 5,
+    position: 'bottom-left',
+
+    textAlign: 'left',
+    loader: true,
+    loaderBg: '#329CBF',
+  });
+}
+
 export const iconTypes = {
   error: 'error',
   warning: 'warning',
