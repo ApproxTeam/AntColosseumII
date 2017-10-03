@@ -26,7 +26,7 @@ export function conditionallySendActivate() {
   let GETParameters = globals.GETParameters;
   if(GETParameters.token !== 'undefined' && GETParameters.nickname !== 'undefined') {
     if(GETParameters.token.length !== 0 && GETParameters.nickname.length !== 0) {
-      console.log("BLALBA");
+      doSend(JSON.stringify(new ActivateAction(GETParameters.token, GETParameters.nickname)));
     }
   }
 }
@@ -43,6 +43,7 @@ export function tryLogin(nick, password) {
 export const actionTypes = {
   register: "REGISTER",
   login: "LOGIN",
+  activate: "ACTIVATE",
 }
 
 export class Action {
@@ -68,6 +69,16 @@ export class LoginAction extends Action {
     this.loginDivisor = {
       login: login,
       password: password,
+    }
+  }
+}
+
+export class ActivateAction extends Action {
+  constructor(token, nickname) {
+    super(actionTypes.activate);
+    this.activateDivisor = {
+      token: token,
+      nickname: nickname,
     }
   }
 }
